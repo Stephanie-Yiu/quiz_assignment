@@ -14,14 +14,20 @@ const answerTwo = document.querySelector('#answerTwo');
 const answerThree = document.querySelector('#answerThree');
 const answerFour = document.querySelector('#answerFour');
 const afterAnswerText = document.querySelector('#afterAnswerText');
+const endding = document.querySelector('#endding');
 
 let score = 0;
+function correct() {
+  score++;
+  scoreText.innerHTML = `Mark: ${score}/ ${quizArray.length}`;
+  afterAnswerText.innerHTML = 'CONGREGATION !!! &#129321;';
+}
 
 const quizArray = [
   {
     question: 'What is 1+1?',
     answers: ['1', '2', '3', '4'],
-    correctAnswer: '1',
+    correctAnswer: '2',
   },
 
   {
@@ -31,7 +37,8 @@ const quizArray = [
   },
 ];
 
-afterAnswerText.classList.add('hide');
+endding.classList.add('hide');
+
 askNameBox.classList.add('hide');
 wellcomeBox.classList.add('hide');
 scoreBox.classList.add('hide');
@@ -104,14 +111,10 @@ function showQuestion() {
 
 function checkAnswer() {
   if (this.innerHTML == randomQ[currentQindex].correctAnswer) {
-    score++;
-    scoreText.innerHTML = `Mark: ${score} / ${quizArray.length}`;
-    afterAnswerText.classList.remove('hide');
-    afterAnswerText.innerHTML = 'CONGREGATION !!! &#129321;';
+    correct();
   }
   if (this.innerHTML != randomQ[currentQindex].correctAnswer) {
     afterAnswerText.innerHTML = 'Wrong';
-    afterAnswerText.classList.remove('hide');
   }
 
   next();
@@ -120,8 +123,17 @@ function checkAnswer() {
 function next() {
   afterAnswerText.classList.add('hide');
   currentQindex++;
-  showQuestion();
+  if (currentQindex < quizArray.length) {
+    showQuestion();
+  }
   if (currentQindex == quizArray.length) {
-    document.body.style.backgroundColor = 'red';
+    endding.classList.remove('hide');
+    questionBox.classList.add('hide');
   }
 }
+
+// showQuestion();
+
+// if (score == quizArray.length) {
+//     endding.classList.remove('hide');
+//   }
