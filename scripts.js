@@ -129,6 +129,7 @@ function next() {
   if (currentQindex == quizArray.length) {
     endding.classList.remove('hide');
     questionBox.classList.add('hide');
+    hello.classList.remove('hide');
   }
 }
 
