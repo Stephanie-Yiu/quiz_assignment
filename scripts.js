@@ -26,12 +26,12 @@ const quizArray = [
 
   {
     question: 'What is 2+1?',
-    answers: ['3', '2', '3', '1'],
+    answers: ['3', '2', '4', '1'],
     correctAnswer: '3',
   },
 ];
 
-// questionBox.classList.add('hide');
+afterAnswerText.classList.add('hide');
 askNameBox.classList.add('hide');
 wellcomeBox.classList.add('hide');
 scoreBox.classList.add('hide');
@@ -103,17 +103,25 @@ function showQuestion() {
 }
 
 function checkAnswer() {
-  for (i = 0; randomQ[currentQindex].answers.length; i++) {
-    if (this.value == randomQ[currentQindex].correctAnswer) {
-      score++;
-      scoreText.innerHTML = `Mark: ${score} / ${quizArray.length}`;
-      afterAnswerText.innerHTML = 'CONGREGATION !!! &#129321;';
-    }
+  if (this.innerHTML == randomQ[currentQindex].correctAnswer) {
+    score++;
+    scoreText.innerHTML = `Mark: ${score} / ${quizArray.length}`;
+    afterAnswerText.classList.remove('hide');
+    afterAnswerText.innerHTML = 'CONGREGATION !!! &#129321;';
   }
-  currentQindex++;
+  if (this.innerHTML != randomQ[currentQindex].correctAnswer) {
+    afterAnswerText.innerHTML = 'Wrong';
+    afterAnswerText.classList.remove('hide');
+  }
+
+  next();
 }
 
 function next() {
+  afterAnswerText.classList.add('hide');
   currentQindex++;
   showQuestion();
+  if (currentQindex == quizArray.length) {
+    document.body.style.backgroundColor = 'red';
+  }
 }
